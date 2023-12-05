@@ -30,28 +30,33 @@ def findDigit(inputString):
     return outputInt
 
 # this needs to be able to convert the line in reverse too somehow
-def convertNumbers(inputString, replacements):
+def convertNumbers(inputString, replacements, reversed):
+    
     for old, new in replacements.items():
-        inputString = inputString.replace(old, new)
-
-    return inputString
+        if reversed:
+            inputString = inputString[::-1].replace(old[::-1], new)
+            return inputString[::-1]
+        else:
+            inputString = inputString.replace(old, new)
+            return inputString
 
 
 with open(inputFile) as openFile:
     for dirty_line in openFile:
-        line = convertNumbers(dirty_line.strip(), replace_dict)
+        line = convertNumbers(dirty_line.strip(), replace_dict, False)
+        line_reversed = convertNumbers(dirty_line.strip(), replace_dict, True)
         
         firstNumber = 0
         secondNumber = 0
 
         firstNumber = str(findDigit(line))
-        secondNumber = str(findDigit(line[::-1]))
+        secondNumber = str(findDigit(line_reversed[::-1]))
 
         checksumCombined = f'{firstNumber}{secondNumber}'
         checksumList.append(checksumCombined)
         count += 1
 
-        print(f'{dirty_line.strip()}; {line} - {checksumCombined}')
+        print(f'{dirty_line.strip()}; {line}; {line_reversed} - {checksumCombined}')
 
 
 for checknum in checksumList:
