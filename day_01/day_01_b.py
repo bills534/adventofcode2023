@@ -6,6 +6,7 @@ inputFile = f'day_{str(dayNumber).zfill(2)}/day_{str(dayNumber).zfill(2)}_input.
 
 checksumList = []
 result = 0
+count = 0
 replace_dict = {
     'one': '1',
     'two': '2',
@@ -28,7 +29,7 @@ def findDigit(inputString):
     
     return outputInt
 
-
+# this needs to be able to convert the line in reverse too somehow
 def convertNumbers(inputString, replacements):
     for old, new in replacements.items():
         inputString = inputString.replace(old, new)
@@ -48,6 +49,7 @@ with open(inputFile) as openFile:
 
         checksumCombined = f'{firstNumber}{secondNumber}'
         checksumList.append(checksumCombined)
+        count += 1
 
         print(f'{dirty_line.strip()}; {line} - {checksumCombined}')
 
@@ -55,4 +57,5 @@ with open(inputFile) as openFile:
 for checknum in checksumList:
     result += int(checknum)
 
+print(f'count: {count}')
 print(result)
