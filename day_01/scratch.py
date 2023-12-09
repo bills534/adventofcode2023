@@ -37,16 +37,38 @@ def convertNumbers(inputString, replacements, reversed):
 def newConvert(inputString, replacements, reversed):
     test_string = ''
     raw_string = ''
-    # add each character of the string 1 by 1 and test each time for replacements
-    for char in inputString:
-        test_string += char
-        raw_string += char  # saving this new string twice to test if it gets changed
-        for old, new in replacements.items():
-            test_string = test_string.replace(old, new)
-            if test_string != raw_string:
-                break
+    output = ''
 
-    pass
+    if not reversed:
+        # add each character of the string 1 by 1 and test each time for replacements
+        for char in inputString:
+            test_string += char
+            raw_string += char  # saving this new string twice to test if it gets changed
+            for old, new in replacements.items():
+                test_string = test_string.replace(old, new)
+                if test_string != raw_string:
+                    output = findDigit(test_string)
+                    break
+    else:
+        # add each character of the string 1 by 1 and test each time for replacements
+        inputString = inputString[::-1]
+        for char in inputString:
+            test_string += char
+            raw_string += char  # saving this new string twice to test if it gets changed
+            for old, new in replacements.items():
+                test_string = test_string.replace(old[::-1], new)
+                if test_string != raw_string:
+                    output = findDigit(test_string)
+                    break
+
+    return output
 
 
-print(convertNumbers('kkeightwo6975six', replace_dict, False))
+
+
+print(newConvert('kkeightwo6975six', replace_dict, False))
+print(newConvert('kkeightwo6975six', replace_dict, True))
+
+
+print(newConvert('jjpngnpzglkbltbrv2tjmqrpb', replace_dict, False))
+print(newConvert('jjpngnpzglkbltbrv2tjmqrpb', replace_dict, True))
