@@ -20,7 +20,8 @@ replace_dict = {
 }
 
 
-def findDigit(inputString):
+def findDigit(inputString: str):
+    '''Finds and returns the first digit in a string'''
     outputInt = 0
     for char in inputString:
         if char.isdigit():
@@ -29,7 +30,9 @@ def findDigit(inputString):
     
     return outputInt
 
-def newConvert(inputString, replacements, reversed):
+def newConvert(inputString: str, replacements: dict, reversed: bool):
+    '''Takes an input string scans from one side to the other checking to see if any written out numbers are found
+        then replaces them with digits'''
     test_string = ''
     raw_string = ''
     output = ''
@@ -61,9 +64,6 @@ def newConvert(inputString, replacements, reversed):
 
 with open(inputFile) as openFile:
     for dirty_line in openFile:
-        
-        firstNumber = 0
-        secondNumber = 0
 
         firstNumber = str(newConvert(dirty_line.strip(), replace_dict, False))
         secondNumber = str(newConvert(dirty_line.strip(), replace_dict, True))
@@ -80,7 +80,6 @@ with open(inputFile) as openFile:
 
 
 for checknum in checksumList:
-
     result += int(checknum)
 
 print(f'count: {count}')
